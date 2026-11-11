@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pantai Taman Kili-Kili — Trenggalek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sea-deep:#0A3C54; --sea:#12749B; --sea-mid:#2C93AE; --sea-light:#7FD1DE;
+    --sand:#F0DBA9; --sand-dark:#D99B4E; --foam:#FBF6EC; --ink:#0B2A36;
+    --surface:var(--foam); --text:var(--ink); --card:#ffffff;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --surface:#071E29; --text:#EAF3F1; --card:#0F2E3C; --foam:#0F2E3C;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --surface:#071E29; --text:#EAF3F1; --card:#0F2E3C; --foam:#0F2E3C;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    background:var(--surface); color:var(--text);
+    font-family:'Plus Jakarta Sans',sans-serif; line-height:1.6;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:600; line-height:1.15;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media(max-width:640px){ section{padding:64px 0;} }
+
+  /* NAV */
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--sea-deep);z-index:40;}
+  header{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:30;
+    background:var(--sea-deep); color:var(--foam);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1100px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:1.25rem; color:#fff;}
+  .brand svg{width:28px;height:28px;}
+  .navlinks{display:flex; gap:28px; font-size:.95rem;}
+  .navlinks a{opacity:.88; padding:4px 2px; border-bottom:2px solid transparent; transition:border-color .25s, opacity .25s;}
+  .navlinks a:hover, .navlinks a:focus-visible{opacity:1; border-color:var(--sand);}
+  .burger{display:none; background:none; border:0; color:#fff; font-size:1.5rem; cursor:pointer;}
+  @media(max-width:760px){
+    .navlinks{position:absolute; top:100%; left:0; right:0; background:var(--sea-deep); flex-direction:column; gap:0; max-height:0; overflow:hidden; transition:max-height .3s ease;}
+    .navlinks.open{max-height:300px;}
+    .navlinks a{padding:14px 28px; border-bottom:1px solid rgba(255,255,255,.08);}
+    .burger{display:block;}
+  }
+
+  /* HERO */
+  .hero{position:relative; min-height:88vh; display:flex; align-items:center; overflow:hidden;
+    background:
+      radial-gradient(ellipse 60% 40% at 78% 18%, rgba(255,235,190,.35), transparent 60%),
+      linear-gradient(180deg,#86C6D6 0%, #3FA0BE 18%, var(--sea) 42%, var(--sea-mid) 66%, var(--sea-deep) 100%);
+    color:#fff;}
+  .hero .wrap{position:relative; z-index:3; padding-top:40px; padding-bottom:160px;}
+  .sun{position:absolute; top:12%; right:12%; width:110px; height:110px; border-radius:50%;
+    background:radial-gradient(circle at 38% 35%, #FFF6DE 0%, #FFE39B 35%, #F0B860 70%, #D9823F 100%);
+    box-shadow:0 0 50px 14px rgba(255,230,180,.5), 0 0 110px 50px rgba(255,210,140,.25); z-index:1;}
+  .eyebrow{display:inline-block; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3);
+    padding:6px 14px; border-radius:30px; font-size:.82rem; margin-bottom:22px;}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.2rem); max-width:11ch;}
+  .hero p{max-width:46ch; margin-top:18px; font-size:1.1rem; color:#EAF6F8;}
+  .cta-row{margin-top:34px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:8px; font-weight:600;
+    font-size:.95rem; cursor:pointer; border:1.5px solid transparent; transition:transform .2s ease, background .2s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-sand{background:var(--sand); color:var(--sea-deep);}
+  .btn-sand:hover{background:var(--sand-dark); color:#fff;}
+  .btn-outline{border-color:rgba(255,255,255,.55); color:#fff;}
+  .btn-outline:hover{background:rgba(255,255,255,.12);}
+
+  .waves{position:absolute; bottom:-2px; left:0; width:100%; z-index:2; line-height:0;}
+  .waves svg{width:200%; height:auto; display:block;}
+  .wave1{animation:drift 22s linear infinite;}
+  .wave2{animation:drift 16s linear infinite reverse; opacity:.7;}
+  @keyframes drift{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion:reduce){ .wave1,.wave2{animation:none;} }
+
+  /* elemen langit & pantai bergerak */
+  .sky-decor{position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;}
+  .cloud{position:absolute;}
+  .cloud svg{width:100%; display:block;}
+  .c1{top:10%; left:-20%; width:150px; animation:cloud-drift 50s linear infinite;}
+  .c2{top:22%; left:-30%; width:100px; animation:cloud-drift 38s linear infinite; animation-delay:-8s;}
+  .c3{top:5%; left:-25%; width:120px; animation:cloud-drift 64s linear infinite; animation-delay:-24s;}
+  @keyframes cloud-drift{ from{transform:translateX(0);} to{transform:translateX(150vw);} }
+  .bird{position:absolute; width:26px; animation:bird-fly 17s linear infinite;}
+  .b1{top:16%;} .b2{top:26%; animation-delay:-6s;} .b3{top:11%; animation-delay:-11s;}
+  @keyframes bird-fly{ 0%{transform:translate(-10vw,0);} 50%{transform:translate(60vw,-16px);} 100%{transform:translate(120vw,0);} }
+  .boat{position:absolute; bottom:20%; left:-18%; width:86px; animation:boat-sail 32s linear infinite, boat-bob 3s ease-in-out infinite;}
+  @keyframes boat-sail{ from{transform:translateX(0);} to{transform:translateX(140vw);} }
+  @keyframes boat-bob{ 0%,100%{translate:0 0;} 50%{translate:0 -6px;} }
+  .palm{position:absolute; bottom:-6px; width:140px; z-index:2;}
+  .palm.left{left:-14px;} .palm.right{right:-14px; transform:scaleX(-1);}
+  .palm .leaf{animation:palm-sway 4.2s ease-in-out infinite; transform-origin:50px 55px;}
+  .palm svg{filter:drop-shadow(0 8px 10px rgba(0,0,0,.3));}
+  .palm .leaf:nth-child(3){animation-delay:-1s;} .palm .leaf:nth-child(4){animation-delay:-2.1s;}
+  @keyframes palm-sway{ 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
+  .hero::after{content:"";position:absolute; inset:0; z-index:1;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,.08) 35%, transparent 50%);
+    background-size:220% 220%; animation:shimmer 7s ease-in-out infinite;}
+  @keyframes shimmer{ 0%,100%{background-position:0% 0%;} 50%{background-position:100% 60%;} }
+
+  /* AKTIVITAS */
+  .scene-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:40px;}
+  @media(max-width:860px){ .scene-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:480px){ .scene-grid{grid-template-columns:1fr;} }
+  .scene{background:var(--card); border-radius:16px; padding:22px 18px 18px; text-align:center; box-shadow:0 8px 24px rgba(10,40,54,.08);}
+  .scene .stage{position:relative; height:90px; display:flex; align-items:flex-end; justify-content:center;}
+  .scene svg{width:72px; height:72px; filter:drop-shadow(0 4px 5px rgba(0,0,0,.22));}
+  .scene p{margin-top:12px; font-weight:600; font-size:.92rem;}
+  .turtle-walk{animation:turtle-crawl 2.8s ease-in-out infinite;}
+  @keyframes turtle-crawl{ 0%,100%{transform:translateX(-6px) rotate(-2deg);} 50%{transform:translateX(6px) rotate(2deg);} }
+  .ball-bounce{animation:ball-bounce 1.3s cubic-bezier(.4,0,.2,1) infinite;}
+  @keyframes ball-bounce{ 0%,100%{transform:translateY(0);} 40%{transform:translateY(-26px);} 60%{transform:translateY(-26px);} }
+  .boat-rock{animation:boat-bob 2.4s ease-in-out infinite;}
+  .rod-sway{transform-origin:54px 10px; animation:rod-sway 2.6s ease-in-out infinite;}
+  @keyframes rod-sway{ 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(4deg);} }
+  .float-bob{animation:float-bob 1.8s ease-in-out infinite;}
+  @keyframes float-bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+  @media (prefers-reduced-motion:reduce){
+    .cloud,.bird,.boat,.palm .leaf,.hero::after,.turtle-walk,.ball-bounce,.boat-rock,.rod-sway,.float-bob{animation:none !important;}
+  }
+
+  /* SECTION HEADS */
+  .kicker{color:var(--sea-mid); font-weight:700; font-size:.85rem; letter-spacing:.02em;}
+  .section-title{font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:8px; max-width:16ch;}
+
+  /* ASAL USUL */
+  .origin{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center;}
+  @media(max-width:860px){ .origin{grid-template-columns:1fr;} }
+  .origin p{margin-top:16px; color:var(--text); opacity:.88; max-width:62ch;}
+  .fact-list{margin-top:26px; display:grid; gap:14px;}
+  .fact{display:flex; gap:12px; align-items:flex-start;}
+  .fact svg{flex:none; width:22px; height:22px; margin-top:2px; color:var(--sea);}
+  .turtle-art{position:relative; aspect-ratio:1/1; border-radius:28px; overflow:hidden;
+    background:linear-gradient(165deg,#9FE0E6 0%, #3FA0BE 35%, #1D6E8A 65%, #0A3C54 100%);
+    box-shadow:inset 0 0 50px rgba(0,0,0,.3);
+    display:flex; align-items:center; justify-content:center;}
+  .turtle-art::before{content:"";position:absolute; inset:0;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.18) 38%, transparent 46%),
+               linear-gradient(115deg, transparent 55%, rgba(255,255,255,.12) 62%, transparent 70%);
+    pointer-events:none;}
+  .turtle-art svg{width:62%; animation:swim 6s ease-in-out infinite;}
+  @keyframes swim{ 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-14px) rotate(2deg);} }
+
+  /* ALBUM */
+  .album-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px;}
+  @media(max-width:860px){ .album-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:560px){ .album-grid{grid-template-columns:1fr;} }
+  .shot{position:relative; aspect-ratio:4/3; border-radius:14px; overflow:hidden; cursor:default; box-shadow:inset 0 0 40px rgba(0,0,0,.28);}
+  .shot .bg{position:absolute; inset:0;}
+  .shot .cap{position:absolute; left:0; right:0; bottom:0; padding:16px; color:#fff; font-weight:600;
+    background:linear-gradient(0deg, rgba(10,40,54,.85), transparent 75%); transform:translateY(8px); opacity:.92; transition:transform .3s ease;}
+  .shot:hover .cap{transform:translateY(0);}
+  .shot:hover .bg{transform:scale(1.06);}
+  .shot .bg{transition:transform .5s ease;}
+  .s1 .bg{background:linear-gradient(180deg,#FFD9A0 0%,#F0A868 22%,#D9713F 45%,#7A4A4E 70%,#0A3C54 100%);}
+  .s2 .bg{background:linear-gradient(180deg,#CDEFF2 0%,#7FD1DE 35%,#2C93AE 65%,#0A3C54 100%);}
+  .s3 .bg{background:linear-gradient(160deg,#BFE8EE 0%,#5FAFC4 30%,#1E6C86 60%,#0A3C54 100%);}
+  .s4 .bg{background:linear-gradient(180deg,#FFF4D9 0%,#F0DBA9 45%,#D9A96A 75%,#B9823F 100%);}
+  .s5 .bg{background:radial-gradient(circle at 30% 20%,#BFE8EE,transparent 55%),linear-gradient(180deg,#2C93AE,#0A3C54 85%);}
+  .s6 .bg{background:linear-gradient(200deg,#F7C97A 0%,#D98F4E 30%,#4A6C73 55%,#0A3C54 100%);}
+
+  /* PENGELOLA */
+  .people{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px;}
+  @media(max-width:700px){ .people{grid-template-columns:1fr;} }
+  .person{background:var(--card); border-radius:18px; padding:30px; box-shadow:0 10px 30px rgba(10,40,54,.08);}
+  .avatar{width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--sea-light),var(--sea)); display:flex; align-items:center; justify-content:center; color:#fff; margin-bottom:16px;}
+  .photo-frame{width:130px; height:170px; margin:0 auto 20px; border-radius:50%; overflow:hidden;
+    border:4px solid var(--sand); background:linear-gradient(135deg,var(--sea-light),var(--sea)); position:relative;}
+  .photo-frame img{width:100%; height:100%; object-fit:cover; display:block;}
+  .photo-frame .ph-fallback{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:6px; color:#fff; text-align:center; padding:10px;}
+  .photo-frame .ph-fallback svg{width:32px; height:32px; opacity:.85;}
+  .photo-frame .ph-fallback span{font-size:.68rem; opacity:.85; line-height:1.3;}
+  .person h3{font-size:1.25rem;}
+  .role{color:var(--sea-mid); font-weight:600; font-size:.88rem; margin-top:2px;}
+  .person p.bio{margin-top:14px; opacity:.85; font-size:.96rem; max-height:0; overflow:hidden; transition:max-height .35s ease, margin-top .35s ease;}
+  .person.open p.bio{max-height:220px; margin-top:14px;}
+  .toggle-btn{margin-top:18px;}
+
+  /* KONTAK */
+  .contact-wrap{background:var(--sea-deep); color:#fff;}
+  .contact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px;}
+  @media(max-width:860px){ .contact-grid{grid-template-columns:repeat(2,1fr);} }
+  .social{display:flex; flex-direction:column; gap:10px; align-items:flex-start; background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:20px; transition:background .25s,transform .2s;}
+  .social:hover{background:rgba(255,255,255,.12); transform:translateY(-3px);}
+  .social svg{width:26px;height:26px;}
+  .social .label{font-size:.78rem; opacity:.7;}
+  .social .value{font-weight:600;}
+
+  footer{text-align:center; padding:28px; font-size:.85rem; opacity:.7; background:var(--sea-deep); color:#fff;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0" stroke="#F0DBA9" stroke-width="2" stroke-linecap="round"/><path d="M3 12c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0" stroke="#FBF6EC" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg>
+      Kili-Kili
+    </div>
+    <button class="burger" id="burger" aria-label="Buka menu">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#beranda">Beranda</a>
+      <a href="#asal-usul">Asal Usul</a>
+      <a href="#album">Album</a>
+      <a href="#aktivitas">Aktivitas</a>
+      <a href="#pengelola">Pengelola</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="beranda">
+  <div class="sun"></div>
+  <div class="sky-decor" aria-hidden="true">
+    <div class="cloud c1"><svg viewBox="0 0 120 60" fill="#fff" opacity=".9"><ellipse cx="30" cy="35" rx="26" ry="16"/><ellipse cx="60" cy="28" rx="30" ry="20"/><ellipse cx="90" cy="36" rx="22" ry="14"/></svg></div>
+    <div class="cloud c2"><svg viewBox="0 0 120 60" fill="#fff" opacity=".8"><ellipse cx="30" cy="35" rx="22" ry="14"/><ellipse cx="60" cy="30" rx="26" ry="17"/><ellipse cx="85" cy="36" rx="18" ry="12"/></svg></div>
+    <div class="cloud c3"><svg viewBox="0 0 120 60" fill="#fff" opacity=".7"><ellipse cx="30" cy="35" rx="20" ry="13"/><ellipse cx="55" cy="30" rx="24" ry="15"/><ellipse cx="80" cy="36" rx="16" ry="10"/></svg></div>
+    <svg class="bird b1" viewBox="0 0 24 12"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="#fff" stroke-width="1.6" fill="none"/></svg>
+    <svg class="bird b2" viewBox="0 0 24 12"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="#fff" stroke-width="1.6" fill="none"/></svg>
+    <svg class="bird b3" viewBox="0 0 24 12"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="#fff" stroke-width="1.6" fill="none"/></svg>
+    <div class="boat"><svg viewBox="0 0 100 80"><defs><linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#153F52"/><stop offset="100%" stop-color="#0A2733"/></linearGradient></defs><g style="filter:drop-shadow(0 4px 4px rgba(0,0,0,.25))"><polygon points="50,6 50,50 80,50" fill="#F7EBD0"/><polygon points="50,6 50,50 24,50" fill="#FFFDF7"/><path d="M10 54 Q50 70 90 54 L84 62 Q50 76 16 62 Z" fill="url(#hullGrad)"/></g></svg></div>
+    <div class="palm left"><svg viewBox="0 0 100 110"><rect x="46" y="60" width="8" height="50" rx="4" fill="#8a5a2b"/><ellipse class="leaf" cx="50" cy="55" rx="40" ry="12" transform="rotate(-20 50 55)" fill="#2f6b3a"/><ellipse class="leaf" cx="50" cy="55" rx="38" ry="11" transform="rotate(25 50 55)" fill="#357a40"/><ellipse class="leaf" cx="50" cy="55" rx="34" ry="10" transform="rotate(90 50 55)" fill="#3f8a4a"/></svg></div>
+    <div class="palm right"><svg viewBox="0 0 100 110"><rect x="46" y="60" width="8" height="50" rx="4" fill="#8a5a2b"/><ellipse class="leaf" cx="50" cy="55" rx="40" ry="12" transform="rotate(-20 50 55)" fill="#2f6b3a"/><ellipse class="leaf" cx="50" cy="55" rx="38" ry="11" transform="rotate(25 50 55)" fill="#357a40"/><ellipse class="leaf" cx="50" cy="55" rx="34" ry="10" transform="rotate(90 50 55)" fill="#3f8a4a"/></svg></div>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Desa Wonocoyo · Kec. Panggul · Trenggalek</span>
+    <h1>Pantai Taman Kili-Kili</h1>
+    <p>Pesisir selatan Trenggalek yang menjadi rumah peneluran penyu, dijaga langsung oleh masyarakat pesisir setempat.</p>
+    <div class="cta-row">
+      <a href="#asal-usul" class="btn btn-sand">Jelajahi Asal Usul</a>
+      <a href="#pengelola" class="btn btn-outline">Pemilik &amp; Pengelola</a>
+    </div>
+  </div>
+  <div class="waves">
+    <svg class="wave1" viewBox="0 0 1600 200" preserveAspectRatio="none"><defs><linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF4D9"/><stop offset="100%" stop-color="#D9A96A"/></linearGradient></defs><path d="M0,100 C200,160 400,40 600,100 C800,160 1000,40 1200,100 C1400,160 1500,80 1600,100 L1600,200 L0,200 Z" fill="url(#sandGrad)" opacity=".92" stroke="rgba(255,255,255,.5)" stroke-width="2"/><path d="M1600,100 C1800,160 2000,40 2200,100 C2400,160 2600,40 2800,100 C3000,160 3100,80 3200,100 L3200,200 L1600,200 Z" fill="url(#sandGrad)" opacity=".92" stroke="rgba(255,255,255,.5)" stroke-width="2"/></svg>
+    <svg class="wave2" viewBox="0 0 1600 200" preserveAspectRatio="none" style="margin-top:-30px"><defs><linearGradient id="foamGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#EAF6EE"/></linearGradient></defs><path d="M0,120 C250,60 450,160 700,110 C950,60 1150,160 1400,110 C1500,90 1550,100 1600,110 L1600,200 L0,200 Z" fill="url(#foamGrad)" opacity=".95"/><path d="M1600,110 C1850,60 2050,160 2300,110 C2550,60 2750,160 3000,110 C3100,90 3150,100 3200,110 L3200,200 L1600,200 Z" fill="url(#foamGrad)" opacity=".95"/></svg>
+  </div>
+</section>
+
+<section id="asal-usul">
+  <div class="wrap origin">
+    <div>
+      <p class="kicker">Asal Usul</p>
+      <h2 class="section-title">Dari kampung nelayan jadi kawasan konservasi</h2>
+      <p>Pantai Taman Kili-Kili berada di Dusun Bendogolor, Desa Wonocoyo, Kecamatan Panggul — sekitar 3 km dari Pantai Pelang. Garis pantainya yang landai dan sepi menjadikannya tempat pendaratan alami bagi penyu laut sejak lama.</p>
+      <p>Warga pesisir kemudian membentuk kelompok pengawas masyarakat (Pokmaswas) untuk menjaga sarang-sarang penyu dari gangguan, merawat telur hingga menetas, lalu melepas tukik kembali ke laut lepas — sebuah tradisi konservasi berbasis masyarakat yang masih berjalan hingga kini.</p>
+      <div class="fact-list">
+        <div class="fact"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/></svg><span>Empat jenis penyu tercatat mendarat di sini: lekang, hijau, sisik, dan belimbing.</span></div>
+        <div class="fact"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg><span>Dikelola bersama oleh kelompok pengawas masyarakat (Pokmaswas) setempat.</span></div>
+        <div class="fact"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="2"/></svg><span>Pengunjung sewaktu-waktu bisa ikut serta melepas tukik ke laut.</span></div>
+      </div>
+    </div>
+    <div class="turtle-art">
+      <svg viewBox="0 0 200 200" fill="none">
+        <defs>
+          <radialGradient id="shellGrad" cx="40%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#F7E6BE"/><stop offset="55%" stop-color="#D99B4E"/><stop offset="100%" stop-color="#8a5a2b"/>
+          </radialGradient>
+          <linearGradient id="finGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#F7E6BE"/><stop offset="100%" stop-color="#D99B4E"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="112" rx="58" ry="46" fill="url(#finGrad)"/>
+        <path d="M58 112 Q100 76 142 112 Q100 148 58 112Z" fill="url(#shellGrad)" stroke="#6b4420" stroke-width="1.5"/>
+        <path d="M100 76 L100 148 M72 86 L86 140 M128 86 L114 140" stroke="#6b4420" stroke-width="1.2" opacity=".5"/>
+        <circle cx="152" cy="92" r="16" fill="url(#finGrad)"/>
+        <circle cx="158" cy="88" r="2.4" fill="#2a1a0d"/>
+        <ellipse cx="46" cy="140" rx="16" ry="9" fill="url(#finGrad)"/>
+        <ellipse cx="154" cy="140" rx="16" ry="9" fill="url(#finGrad)"/>
+        <ellipse cx="46" cy="80" rx="14" ry="8" fill="url(#finGrad)"/>
+        <ellipse cx="154" cy="80" rx="14" ry="8" fill="url(#finGrad)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="album" style="background:var(--card);">
+  <div class="wrap">
+    <p class="kicker">Album</p>
+    <h2 class="section-title">Suasana Kili-Kili</h2>
+    <div class="album-grid">
+      <div class="shot s1"><div class="bg"></div><div class="cap">Matahari terbenam di garis pantai</div></div>
+      <div class="shot s2"><div class="bg"></div><div class="cap">Pelepasan tukik ke laut lepas</div></div>
+      <div class="shot s3"><div class="bg"></div><div class="cap">Ombak tenang pagi hari</div></div>
+      <div class="shot s4"><div class="bg"></div><div class="cap">Pasir pantai yang landai</div></div>
+      <div class="shot s5"><div class="bg"></div><div class="cap">Area konservasi sarang penyu</div></div>
+      <div class="shot s6"><div class="bg"></div><div class="cap">Aktivitas nelayan setempat</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="aktivitas" style="background:linear-gradient(180deg,var(--foam),var(--sand) 140%);">
+  <div class="wrap">
+    <p class="kicker">Aktivitas</p>
+    <h2 class="section-title">Yang bisa dilakukan di pantai</h2>
+    <div class="scene-grid">
+      <div class="scene"><div class="stage"><svg class="turtle-walk" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="20" ry="15" fill="url(#finGrad)"/><path d="M14 36 Q32 20 50 36 Q32 50 14 36Z" fill="url(#shellGrad)"/><circle cx="50" cy="26" r="6" fill="url(#finGrad)"/></svg></div><p>Pelepasan Tukik</p></div>
+      <div class="scene"><div class="stage"><svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="ballGrad" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#8FE3F0"/><stop offset="100%" stop-color="#0E5D78"/></radialGradient></defs><path d="M20 58 L20 30" stroke="#8a5a2b" stroke-width="3"/><path d="M20 30 L4 14 M20 30 L36 14 M20 30 L20 6" stroke="#E08E45" stroke-width="3"/><circle class="ball-bounce" cx="44" cy="48" r="9" fill="url(#ballGrad)"/></svg></div><p>Bermain di Pasir</p></div>
+      <div class="scene"><div class="stage"><svg class="boat-rock" viewBox="0 0 64 64" fill="none"><polygon points="32,6 32,34 50,34" fill="#F7EBD0"/><polygon points="32,6 32,34 16,34" fill="#FFFDF7"/><path d="M8 38 Q32 50 56 38 L50 46 Q32 54 14 46 Z" fill="url(#hullGrad)"/></svg></div><p>Berlayar</p></div>
+      <div class="scene"><div class="stage"><svg viewBox="0 0 64 64" fill="none"><path class="rod-sway" d="M54 10 L20 46" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round"/><circle class="float-bob" cx="18" cy="48" r="4" fill="#E08E45"/></svg></div><p>Memancing</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pengelola">
+  <div class="wrap">
+    <p class="kicker">Pemilik &amp; Pengelola</p>
+    <h2 class="section-title">Siapa yang menjaga pantai ini</h2>
+    <div class="people">
+      <div class="person" id="card-pemilik">
+        <div class="photo-frame">
+          <img src="foto-pemilik.jpg" alt="Foto Pemilik Kili-Kili" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+          <div class="ph-fallback"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l2-3h6l2 3h3v12H4z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="13" r="4" stroke="#fff" stroke-width="1.8"/></svg><span>Taruh foto di sini<br>(ganti file foto-pemilik.jpg)</span></div>
+        </div>
+        <h3>Pemilik Kili-Kili</h3>
+        <p class="role">Pemerintah Desa Wonocoyo</p>
+        <p class="bio">Lahan pesisir Kili-Kili berstatus tanah desa yang dikelola untuk kepentingan konservasi dan ekowisata, di bawah pengawasan Pemerintah Desa Wonocoyo, Kecamatan Panggul.</p>
+        <button class="btn btn-sand toggle-btn" data-target="card-pemilik">Pemilik Kili-Kili</button>
+      </div>
+      <div class="person" id="card-pengelola">
+        <div class="photo-frame">
+          <img src="foto-pengelola.jpg" alt="Foto Pengelola Kili-Kili" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+          <div class="ph-fallback"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l2-3h6l2 3h3v12H4z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="13" r="4" stroke="#fff" stroke-width="1.8"/></svg><span>Taruh foto di sini<br>(ganti file foto-pengelola.jpg)</span></div>
+        </div>
+        <h3>Pokmaswas Taman Kili-Kili</h3>
+        <p class="role">Kelompok Pengawas Masyarakat</p>
+        <p class="bio">Pengelolaan harian — patroli sarang, penangkaran telur, hingga pelepasan tukik — dijalankan oleh kelompok pengawas masyarakat (Pokmaswas) bersama warga Desa Wonocoyo.</p>
+        <button class="btn btn-sand toggle-btn" data-target="card-pengelola">Pengelola</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-wrap" id="kontak">
+  <div class="wrap">
+    <p class="kicker" style="color:var(--sand);">Kontak</p>
+    <h2 class="section-title" style="color:#fff;">Terhubung dengan Kili-Kili</h2>
+    <div class="contact-grid">
+      <a class="social" href="https://instagram.com/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.1" fill="#fff"/></svg>
+        <span class="label">Instagram</span><span class="value">@pantaikilikili</span>
+      </a>
+      <a class="social" href="https://tiktok.com/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 3v11a3.5 3.5 0 11-3-3.46" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M14 3c.4 2.4 2 4 4.5 4.2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="label">TikTok</span><span class="value">@kilikilibeach</span>
+      </a>
+      <a class="social" href="https://wa.me/6281234567890" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1.4-4A8 8 0 1112 20a7.9 7.9 0 01-4-1.1L4 20z" stroke="#fff" stroke-width="1.8"/></svg>
+        <span class="label">WhatsApp / Telepon</span><span class="value">+62 812-3456-7890</span>
+      </a>
+      <a class="social" href="https://facebook.com/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 21v-7h2.5l.5-3H14V9c0-.9.3-1.5 1.7-1.5H17V4.8C16.6 4.7 15.6 4.6 14.5 4.6 12.1 4.6 10.5 6 10.5 8.6V11H8v3h2.5v7" stroke="#fff" stroke-width="1.8"/></svg>
+        <span class="label">Facebook</span><span class="value">Taman Kili-Kili</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Pantai Taman Kili-Kili · Desa Wonocoyo, Panggul, Trenggalek</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navlinks = document.getElementById('navlinks');
+  burger.addEventListener('click', () => navlinks.classList.toggle('open'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = document.getElementById(btn.dataset.target);
+      card.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
